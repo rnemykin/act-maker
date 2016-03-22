@@ -2,11 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css}"/>
 </head>
 <body ng-app="acts">
-    <div ng-controller="ActsController">
+    <div class="container" ng-controller="ActsController">
 
-        spring {{status}}
+        <h1>spring {{status}}</h1>
+        <button ng-click="testClick()" class="btn btn-default">test me</button>
 
     </div>
 
