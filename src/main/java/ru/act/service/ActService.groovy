@@ -9,6 +9,10 @@ import ru.act.model.Act
 class ActService {
 
     XWPFDocument makeAct(Act act) {
+        act.mainSum = act.salaryRate.multiply(act.mainTaskHours)
+        act.additionalSum = act.additionalTaskHours?.multiply(act.salaryRate.multiply(BigDecimal.valueOf(1.5)))
+        act.allSum = act.mainSum.add(act.additionalSum ?: BigDecimal.ZERO)
+
         def docTemplate = ActService.class.getResource("/test.docx")
         XWPFDocument doc = new XWPFDocument(OPCPackage.open(docTemplate.file))
         doc.paragraphs.each {
@@ -54,7 +58,7 @@ class ActService {
     String replaceFromProperty(String text, act) {
         act.properties.each {key, value ->
             if(!(key.toString()  in ['metaClass', 'class'])) {
-                text = text?.replace(key.toString(), value.toString()?:'')
+                text = text?.replace(key.toString(), value.toString() ?: '')
             }
         }
         text

@@ -8,9 +8,12 @@ class Act {
     Short actNumber;
     Short docNumber;
     LocalDate docSignDate;
-    String mainTask;
-    Integer mainTaskHours;
-    String additionalTask;
-    Integer additionalTaskHours;
     BigDecimal salaryRate;
+    String mainTask;
+    BigDecimal mainTaskHours;
+    BigDecimal mainSum;
+    String additionalTask;
+    BigDecimal additionalTaskHours;
+    BigDecimal additionalSum;
+    BigDecimal allSum;
 }
