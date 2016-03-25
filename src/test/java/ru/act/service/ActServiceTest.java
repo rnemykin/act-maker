@@ -9,7 +9,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.act.Application;
 import ru.act.model.Act;
 
+import javax.script.ScriptException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,6 +22,9 @@ public class ActServiceTest {
 
     @Autowired
     ActService actService;
+
+    @Autowired
+    RussianNameProcessor nameProcessor;
 
     @Test
     public void makeAct() throws Exception {
@@ -35,8 +40,12 @@ public class ActServiceTest {
         act.setAdditionalTask("asdasdas ahsgdjasghd asg yuags udyags udygas uygas ");
         act.setAdditionalTaskHours(BigDecimal.valueOf(16));
 
-
         XWPFDocument xwpfDocument = actService.makeAct(act);
         xwpfDocument.write(new FileOutputStream(new File("123.docx")));
+    }
+
+    @Test
+    public void testJS() throws FileNotFoundException, ScriptException {
+        System.out.println(nameProcessor.inCaseRod("Гадя Петрович Хренова"));
     }
 }

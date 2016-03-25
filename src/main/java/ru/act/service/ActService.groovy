@@ -3,6 +3,7 @@ package ru.act.service
 import com.ibm.icu.text.RuleBasedNumberFormat
 import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.xwpf.usermodel.XWPFDocument
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.act.model.Act
 
@@ -10,9 +11,7 @@ import java.time.format.DateTimeFormatterBuilder
 import java.time.format.SignStyle
 import java.time.format.TextStyle
 
-import static java.time.temporal.ChronoField.DAY_OF_MONTH
-import static java.time.temporal.ChronoField.MONTH_OF_YEAR
-import static java.time.temporal.ChronoField.YEAR
+import static java.time.temporal.ChronoField.*
 
 @Service
 class ActService {
@@ -25,6 +24,8 @@ class ActService {
             .appendValue(YEAR, 4, 10, SignStyle.EXCEEDS_PAD)
             .toFormatter()
 
+    @Autowired
+    private RussianNameProcessor nameProcessor;
 
     XWPFDocument makeAct(Act act) {
 
@@ -69,11 +70,11 @@ class ActService {
 
     ActProperty buildProperties(Act act) {
         ActProperty actProperty = new ActProperty();
-        actProperty.userName = act.userName  //  padezh
-        actProperty.shortUserName = act.userName  //  short
+        actProperty.userName = nameProcessor.inCaseRod(act.userName)
+        actProperty.shortUserName = getShortName(act.userName)
 
         actProperty.actDay = act.date.withDayOfMonth(1).dayOfMonth
-        actProperty.actMonth = act.docSignDate.month.getDisplayName(TextStyle.FULL, Locale.default)
+        actProperty.actMonth = act.docSignDate.month.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("ru"))
         actProperty.actYear = act.date.year
         actProperty.actStartDate = act.date.withDayOfMonth(1).format(RU_DATE_FORMATTER)
         actProperty.actEndDate = act.date.withDayOfMonth(act.date.lengthOfMonth()).format(RU_DATE_FORMATTER)
@@ -103,6 +104,15 @@ class ActService {
         actProperty.sumStr = numberFormat.format(actProperty.allSum);
 
         actProperty
+    }
+
+    String getShortName(String userName) {
+        String[] values = userName.split(' ');
+        String lastName = values.size() > 0 ? values[0] : null
+        String firstName = values.size() > 1 ? values[1] : null
+        String middleName = values.size() > 2 ? values[2] : null
+
+        String.format("%s %s. %s.", lastName, firstName?.charAt(0), middleName?.charAt(0))
     }
 
     static class ActProperty {
