@@ -3,17 +3,14 @@ package ru.act.model
 import java.time.LocalDate
 
 class Act {
-    String userName;
-    LocalDate startDate;
-    Short actNumber;
-    Short docNumber;
-    LocalDate docSignDate;
-    BigDecimal salaryRate;
-    String mainTask;
-    BigDecimal mainTaskHours;
-    BigDecimal mainSum;
-    String additionalTask;
-    BigDecimal additionalTaskHours;
-    BigDecimal additionalSum;
-    BigDecimal allSum;
+    String userName
+    LocalDate date
+    Integer actNumber
+    Integer docNumber
+    LocalDate docSignDate
+    BigDecimal salaryRate = BigDecimal.ZERO
+    String mainTask
+    BigDecimal mainTaskHours = BigDecimal.ZERO
+    String additionalTask
+    BigDecimal additionalTaskHours
 }
