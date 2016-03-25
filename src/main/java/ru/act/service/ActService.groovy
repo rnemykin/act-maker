@@ -27,8 +27,8 @@ class ActService {
     @Autowired
     private RussianNameProcessor nameProcessor;
 
-    XWPFDocument makeAct(Act act) {
 
+    XWPFDocument makeAct(Act act) {
         def actProperty = buildProperties(act)
         def docTemplate = ActService.class.getResource("/test.docx")
         XWPFDocument doc = new XWPFDocument(OPCPackage.open(docTemplate.file))
@@ -56,12 +56,12 @@ class ActService {
         doc
     }
 
-    String replaceFromProperty(String text, Object source) {
+    String replaceFromProperty(String text, ActProperty source) {
         source.properties.each {key, value ->
             if(!(key.toString()  in ['metaClass', 'class'])) {
-                String exactKey = String.format("\\b%s\\b", key.toString())
-                String valueToReplace = value?.toString() ?: ''
-                text = text?.replaceAll(exactKey, valueToReplace)
+                String keyWord = String.format("\\b%s\\b", key.toString())
+                String replacement = value?.toString() ?: ''
+                text = text?.replaceAll(keyWord, replacement)
             }
         }
 
@@ -91,7 +91,7 @@ class ActService {
         if(act.additionalTask) {
             actProperty.addTask = act.additionalTask
             actProperty.salaryRate2 = act.salaryRate.multiply(BigDecimal.valueOf(1.5)).setScale(0)
-            actProperty.addSum = act.additionalTaskHours.multiply(actProperty.salaryRate2)
+            actProperty.addSum = act.additionalTaskHours?.multiply(actProperty.salaryRate2)
             actProperty.addTaskHours = act.additionalTaskHours
             actProperty.actAddStartDate = actProperty.actStartDate + '-'
             actProperty.actAddEndDate = actProperty.actEndDate
