@@ -1,5 +1,6 @@
 package ru.act.service
 
+import com.ibm.icu.text.RuleBasedNumberFormat
 import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.springframework.stereotype.Service
@@ -88,7 +89,7 @@ class ActService {
 
         if(act.additionalTask) {
             actProperty.addTask = act.additionalTask
-            actProperty.salaryRate2 = act.salaryRate.multiply(BigDecimal.valueOf(1.5))
+            actProperty.salaryRate2 = act.salaryRate.multiply(BigDecimal.valueOf(1.5)).setScale(0)
             actProperty.addSum = act.additionalTaskHours.multiply(actProperty.salaryRate2)
             actProperty.addTaskHours = act.additionalTaskHours
             actProperty.actAddStartDate = actProperty.actStartDate + '-'
@@ -97,7 +98,9 @@ class ActService {
 
         actProperty.mainSum = act.salaryRate.multiply(act.mainTaskHours)
         actProperty.allSum = actProperty.mainSum.add(actProperty.addSum ?: BigDecimal.ZERO)
-        actProperty.sumStr = "ввосемьдесят тыщ стопятьсот рублей"
+
+        def numberFormat = new RuleBasedNumberFormat(Locale.forLanguageTag("ru"), RuleBasedNumberFormat.SPELLOUT)
+        actProperty.sumStr = numberFormat.format(actProperty.allSum);
 
         actProperty
     }
