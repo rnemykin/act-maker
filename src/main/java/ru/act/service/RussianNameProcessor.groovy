@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
 import javax.script.ScriptEngine
 import javax.script.ScriptEngineManager
+import java.nio.charset.Charset
 
 @Service
 class RussianNameProcessor {
@@ -19,7 +20,7 @@ class RussianNameProcessor {
 
     @PostConstruct
     init() {
-        JS_ENGINE.eval(new FileReader(resource.getFile()));
+        JS_ENGINE.eval(new InputStreamReader(resource.getInputStream(), Charset.forName("UTF-8")));
     }
 
 
