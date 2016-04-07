@@ -15,7 +15,7 @@ class RussianNameProcessor {
     private static final ScriptEngine JS_ENGINE = new ScriptEngineManager().getEngineByName("javascript");
     private static final String GET_IN_ROD = "RussianNameProcessor.word('%s', '', '%s', RussianNameProcessor.gcaseRod)"
 
-    @Value("RussianNameProcessor.js")
+    @Value("classpath:RussianNameProcessor.js")
     private Resource resource;
 
     @PostConstruct

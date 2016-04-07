@@ -6,13 +6,31 @@
 </head>
 <body ng-app="acts">
     <div class="container" ng-controller="ActsController">
+        <h2>Мои акты</h2>
+        <div ng-show="acts.length == 0">Пока ничего нет</div>
 
-        <h1>spring {{status}}</h1>
-        <button ng-click="testClick()" class="btn btn-default">test me</button>
+        <table ng-show="acts.length > 0" st-table="rowCollection" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Номер акта</th>
+                <th>Дата формирования</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="row in acts">
+                <td>{{row.actNumber}}</td>
+                <td>{{row.createDate | date:'dd.MM.yyyy HH:mm' }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br/>
+        <button ng-click="testClick()" class="btn btn-primary">Сформировать акт</button>
 
     </div>
 
     <script type="text/javascript" th:src="@{/js/lib/angular.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/lib/smart.table/smart-table.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/app.js}"></script>
 </body>
 </html>
