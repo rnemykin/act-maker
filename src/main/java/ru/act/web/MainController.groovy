@@ -27,9 +27,4 @@ class MainController {
         LocalDateTime.now()
     }
 
-    @RequestMapping("/")
-    String index() {
-        "index"
-    }
-
 }

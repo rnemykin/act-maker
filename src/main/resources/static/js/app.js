@@ -1,11 +1,22 @@
-var acts = angular.module('acts', ['smart-table']);
+var acts = angular.module('acts', ['ngRoute', 'smart-table']);
+
+acts.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider.when('/', {
+        templateUrl: 'part/index',
+        controller: 'ActsController'
+    }).when('/create', {
+        templateUrl:  'part/create-act',
+        controller: 'ActsController'
+    }).otherwise({
+        redirectTo: '/'
+    });
+}]);
 
 
-acts.controller('ActsController', function ActsController($scope) {
-    $scope.status = 'booted ';
+acts.controller('ActsController', function ActsController($scope, $location) {
 
-    $scope.testClick =function () {
-        alert(1);
+    $scope.go = function (path) {
+        $location.path(path);
     };
 
     $scope.acts = localStorage.getItem('acts') || [];
@@ -19,6 +30,5 @@ acts.controller('ActsController', function ActsController($scope) {
         actNumber: 2,
         createDate: new Date()
     });
-
 
 });
