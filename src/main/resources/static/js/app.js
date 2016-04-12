@@ -6,7 +6,7 @@ acts.config(['$routeProvider', function ($routeProvider) {
         controller: 'ActsController'
     }).when('/create', {
         templateUrl:  'part/create-act',
-        controller: 'ActsController'
+        controller: 'CreateACtController'
     }).otherwise({
         redirectTo: '/'
     });
@@ -20,6 +20,8 @@ acts.controller('ActsController', function ActsController($scope, $location) {
     };
 
     $scope.acts = localStorage.getItem('acts') || [];
+
+    //todo test
     $scope.acts.push({
         id: 1,
         actNumber: 1,

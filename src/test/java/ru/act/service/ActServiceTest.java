@@ -29,16 +29,16 @@ public class ActServiceTest {
     @Test
     public void makeAct() throws Exception {
         Act act = new Act();
-        act.setActNumber(1);
+        act.setActNumber(8);
         act.setDocNumber(3);
         act.setSalaryRate(BigDecimal.valueOf(500));
-        act.setMainTaskHours(BigDecimal.valueOf(170));
+        act.setMainTaskHours(BigDecimal.valueOf(160));
         act.setMainTask("основная большая задача за месяц");
         act.setDocSignDate(LocalDate.of(2015, 3, 8));
-        act.setDate(LocalDate.now());
+        act.setDate(LocalDate.of(2016,3,5));
         act.setUserName("Немыкин Роман Валерьевич");
-        act.setAdditionalTask("asdasdas ahsgdjasghd asg yuags udyags udygas uygas ");
-        act.setAdditionalTaskHours(BigDecimal.valueOf(16));
+//        act.setAdditionalTask("asdasdas ahsgdjasghd asg yuags udyags udygas uygas ");
+//        act.setAdditionalTaskHours(BigDecimal.valueOf(16));
 
         XWPFDocument xwpfDocument = actService.makeAct(act);
         xwpfDocument.write(new FileOutputStream(new File("123.docx")));
