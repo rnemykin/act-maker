@@ -73,8 +73,8 @@ class ActService {
         actProperty.userName = nameProcessor.inCaseRod(act.userName)
         actProperty.shortUserName = getShortName(act.userName)
 
-        actProperty.actDay = act.date.withDayOfMonth(1).dayOfMonth
-        actProperty.actMonth = act.docSignDate.month.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("ru"))
+        actProperty.actDay = act.date.withDayOfMonth(act.date.lengthOfMonth()).dayOfMonth
+        actProperty.actMonth = act.date.month.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("ru"))
         actProperty.actYear = act.date.year
         actProperty.actStartDate = act.date.withDayOfMonth(1).format(RU_DATE_FORMATTER)
         actProperty.actEndDate = act.date.withDayOfMonth(act.date.lengthOfMonth()).format(RU_DATE_FORMATTER)
@@ -128,6 +128,8 @@ class ActService {
         String actAddEndDate
         Integer actNumber
 
+        Integer certSerial;
+        Long certNumber;
         Integer docNumber
         Integer docSignYear
         String docSignDate

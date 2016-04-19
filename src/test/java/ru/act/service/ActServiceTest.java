@@ -15,6 +15,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
@@ -33,15 +35,19 @@ public class ActServiceTest {
         act.setDocNumber(3);
         act.setSalaryRate(BigDecimal.valueOf(500));
         act.setMainTaskHours(BigDecimal.valueOf(160));
-        act.setMainTask("основная большая задача за месяц");
-        act.setDocSignDate(LocalDate.of(2015, 3, 8));
-        act.setDate(LocalDate.of(2016,3,5));
+        act.setMainTask("Доработка функционала COD-GATEWAY");
+        act.setDocSignDate(LocalDate.of(2015, 8, 1));
+        act.setDate(LocalDate.of(2016, 3, 5));
         act.setUserName("Немыкин Роман Валерьевич");
 //        act.setAdditionalTask("asdasdas ahsgdjasghd asg yuags udyags udygas uygas ");
 //        act.setAdditionalTaskHours(BigDecimal.valueOf(16));
 
         XWPFDocument xwpfDocument = actService.makeAct(act);
-        xwpfDocument.write(new FileOutputStream(new File("123.docx")));
+
+        String month = act.getDate().getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.forLanguageTag("ru"));
+        String userName = act.getUserName().replaceAll(" ", "_");
+        String fileName = String.format("Акт_%s_%s_%s.docx", month, act.getDate().getYear(), userName);
+        xwpfDocument.write(new FileOutputStream(new File(fileName)));
     }
 
     @Test
