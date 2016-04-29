@@ -39,6 +39,8 @@ public class ActServiceTest {
         act.setDocSignDate(LocalDate.of(2015, 8, 1));
         act.setDate(LocalDate.of(2016, 3, 5));
         act.setUserName("Немыкин Роман Валерьевич");
+        act.setCertSerial(31);
+        act.setCertNumber("002439785");
 //        act.setAdditionalTask("asdasdas ahsgdjasghd asg yuags udyags udygas uygas ");
 //        act.setAdditionalTaskHours(BigDecimal.valueOf(16));
 

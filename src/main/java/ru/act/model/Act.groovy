@@ -7,6 +7,8 @@ class Act {
     LocalDate date
     Integer actNumber
     Integer docNumber
+    Integer certSerial;
+    String certNumber;
     LocalDate docSignDate
     BigDecimal salaryRate = BigDecimal.ZERO
     String mainTask

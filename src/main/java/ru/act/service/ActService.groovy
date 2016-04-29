@@ -83,6 +83,8 @@ class ActService {
         actProperty.docNumber = act.docNumber
         actProperty.docSignYear = act.docSignDate.year
         actProperty.docSignDate = act.docSignDate.format(RU_DATE_FORMATTER)
+        actProperty.certSerial = act.certSerial
+        actProperty.certNumber = act.certNumber
 
         actProperty.mainTask = act.mainTask
         actProperty.mainTaskHours = act.mainTaskHours
@@ -129,7 +131,7 @@ class ActService {
         Integer actNumber
 
         Integer certSerial;
-        Long certNumber;
+        String certNumber;
         Integer docNumber
         Integer docSignYear
         String docSignDate
