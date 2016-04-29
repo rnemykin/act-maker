@@ -12,15 +12,15 @@
             <label>Свидетельство ИП</label>
             <div class="input-group">
                 <span class="input-group-addon">Серия</span>
-                <input type="text" class="form-control input-mini" id="certSerial" ng-model="user.certSerial" ng-pattern="onlyNumbers"/>
+                <input type="number" class="form-control input-mini" id="certSerial" ng-model="user.certSerial" ng-pattern="onlyNumbers"/>
                 <span class="input-group-addon" style="border-left: 0; border-right: 0;">номер</span>
-                <input type="text" class="form-control" id="certNumber" ng-model="user.certNumber" />
+                <input type="number" class="form-control" id="certNumber" ng-model="user.certNumber" />
             </div>
 
             <label>Договор</label>
             <div class="input-group">
                 <span class="input-group-addon">Номер</span>
-                <input type="text" class="form-control" id="docNumber" ng-model="user.docNumber" />
+                <input type="number" class="form-control" id="docNumber" ng-model="user.docNumber" />
                 <span class="input-group-addon" style="border-left: 0; border-right: 0;">дата</span>
                 <input type="date" class="form-control" id="docSignDate" ng-model="user.docSignDate" />
             </div>
