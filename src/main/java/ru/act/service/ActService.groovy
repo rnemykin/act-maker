@@ -3,6 +3,8 @@ package ru.act.service
 import com.ibm.icu.text.RuleBasedNumberFormat
 import org.apache.poi.openxml4j.opc.OPCPackage
 import org.apache.poi.xwpf.usermodel.XWPFDocument
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.act.model.Act
@@ -15,6 +17,7 @@ import static java.time.temporal.ChronoField.*
 
 @Service
 class ActService {
+    private static final Logger log = LoggerFactory.getLogger(ActService.class)
 
     private static def RU_DATE_FORMATTER = new DateTimeFormatterBuilder()
             .appendValue(DAY_OF_MONTH, 2)
@@ -53,6 +56,7 @@ class ActService {
             }
         }
 
+        log.info("Act for user {} has been created", act.userName)
         doc
     }
 

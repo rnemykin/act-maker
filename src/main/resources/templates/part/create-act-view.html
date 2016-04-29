@@ -2,19 +2,55 @@
     <div class="row">
         <h2>Создание нового акта</h2>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-6">
         <div class="row">
-
             <div class="form-group">
-                <label for="userName">Введите Ваше ФИО</label>
-                <input type="text" class="form-control" id="userName" ng-model="userInfo.name"/>
+                <label for="userName">Ваше ФИО</label>
+                <input type="text" class="form-control" id="userName" ng-model="user.name" required="required"/>
             </div>
-            <!--<div class="form-group">-->
-            <!--<label for="pwd">Password:</label>-->
-            <!--<input type="password" class="form-control" id="pwd" />-->
-            <!--</div>-->
-            <div class="form-group">
 
+            <label>Свидетельство ИП</label>
+            <div class="input-group">
+                <span class="input-group-addon">Серия</span>
+                <input type="text" class="form-control input-mini" id="certSerial" ng-model="user.certSerial" ng-pattern="onlyNumbers"/>
+                <span class="input-group-addon" style="border-left: 0; border-right: 0;">номер</span>
+                <input type="text" class="form-control" id="certNumber" ng-model="user.certNumber" />
+            </div>
+
+            <label>Договор</label>
+            <div class="input-group">
+                <span class="input-group-addon">Номер</span>
+                <input type="text" class="form-control" id="docNumber" ng-model="user.docNumber" />
+                <span class="input-group-addon" style="border-left: 0; border-right: 0;">дата</span>
+                <input type="date" class="form-control" id="docSignDate" ng-model="user.docSignDate" />
+            </div>
+
+            <label for="salaryRate">Ставка в час</label>
+            <div class="input-group">
+                <input type="number" class="form-control" id="salaryRate" ng-model="user.salaryRate"/>
+                <span class="input-group-addon">.00</span>
+            </div>
+            <br/>
+            <br/>
+
+            <label>Название задачи / часы</label>
+            <div class="input-group">
+                <span class="input-group-addon">Задача</span>
+                <input type="text" class="form-control" id="mainTask" ng-model="mainTask" style="width: 350px;"/>
+                <span class="input-group-addon" style="border-left: 0; border-right: 0;">часы</span>
+                <input type="number" class="form-control" id="mainTaskHours" ng-model="mainTaskHours"/>
+            </div>
+
+            <label>Акт</label>
+            <div class="input-group">
+                <span class="input-group-addon">Номер</span>
+                <input type="number" class="form-control" id="actNumber" ng-model="actNumber" />
+                <span class="input-group-addon" style="border-left: 0; border-right: 0;">дата</span>
+                <input type="date" class="form-control" id="date" ng-model="date"/>
+            </div>
+            <br/>
+
+            <div class="form-group">
                 <button ng-click="go('/create')" class="btn btn-success">Сформировать акт</button>
                 <button ng-click="go('/create')" class="btn btn-primary">Отправить на почту</button>
             </div>
