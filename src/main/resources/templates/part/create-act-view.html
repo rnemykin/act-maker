@@ -26,7 +26,7 @@
             </div>
 
             <label for="salaryRate">Ставка в час</label>
-            <div class="input-group">
+            <div class="input-group col-sm-3">
                 <input type="number" class="form-control" id="salaryRate" ng-model="user.salaryRate"/>
                 <span class="input-group-addon">.00</span>
             </div>
@@ -36,23 +36,31 @@
             <label>Название задачи / часы</label>
             <div class="input-group">
                 <span class="input-group-addon">Задача</span>
-                <input type="text" class="form-control" id="mainTask" ng-model="mainTask" style="width: 350px;"/>
+                <input type="text" class="form-control" id="mainTask" ng-model="act.mainTask" style="width: 350px;"/>
                 <span class="input-group-addon" style="border-left: 0; border-right: 0;">часы</span>
-                <input type="number" class="form-control" id="mainTaskHours" ng-model="mainTaskHours"/>
+                <input type="number" class="form-control" id="mainTaskHours" ng-model="act.mainTaskHours"/>
+            </div>
+
+            <label>Работы в выхи</label>
+            <div class="input-group collapse">
+                <span class="input-group-addon">Задача</span>
+                <input type="text" class="form-control" id="additionalTask" ng-model="act.additionalTask" style="width: 350px;"/>
+                <span class="input-group-addon" style="border-left: 0; border-right: 0;">часы</span>
+                <input type="number" class="form-control" id="additionalTaskHours" ng-model="act.additionalTaskHours"/>
             </div>
 
             <label>Акт</label>
             <div class="input-group">
                 <span class="input-group-addon">Номер</span>
-                <input type="number" class="form-control" id="actNumber" ng-model="actNumber" />
+                <input type="number" class="form-control" id="actNumber" ng-model="act.number" />
                 <span class="input-group-addon" style="border-left: 0; border-right: 0;">дата</span>
-                <input type="date" class="form-control" id="date" ng-model="date"/>
+                <input type="date" class="form-control" id="date" ng-model="act.date"/>
             </div>
             <br/>
 
             <div class="form-group">
-                <button ng-click="go('/create')" class="btn btn-success">Сформировать акт</button>
-                <button ng-click="go('/create')" class="btn btn-primary">Отправить на почту</button>
+                <button ng-click="create()" class="btn btn-success">Сформировать акт</button>
+                <button ng-click="sentToEmail()" class="btn btn-primary">Отправить на почту</button>
             </div>
         </div>
     </div>

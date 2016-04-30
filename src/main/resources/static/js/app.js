@@ -19,7 +19,7 @@ acts.controller('ActsController', function ActsController($scope, $location) {
         $location.path(path);
     };
 
-    $scope.acts = localStorage.getItem('acts') || [];
+    $scope.acts = JSON.parse(localStorage.getItem('acts')) || [];
 
     //todo test
     $scope.acts.push({
