@@ -8,9 +8,11 @@ acts.controller('CreateACtController', function CreateACtController($scope, $loc
     var act = {};
     var acts = JSON.parse(localStorage.getItem('acts'));
     if(acts) {
-        act.number = Math.max.apply(Math, acts.map(function(el) {
-            return el.actNumber;
-        })) + 1;
+        if(localStorage.getItem('act.incrementNumber') != 0) {
+            act.number = Math.max.apply(Math, acts.map(function(el) {
+                return el.actNumber;
+            })) + 1;
+        }
     }
     $scope.act = act;
 
