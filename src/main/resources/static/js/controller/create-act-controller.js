@@ -33,7 +33,7 @@ acts.controller('CreateACtController', function CreateACtController($scope, $loc
         };
 
         localStorage.setItem('user', JSON.stringify(this.user));
-        $http.post('/acts', act).then(onCreateSuccess, onCreateFail);
+        $http.post('/acts', act, { responseType: 'arraybuffer' }).then(onCreateSuccess, onCreateFail);
 
     };
 
