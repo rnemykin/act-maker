@@ -33,4 +33,12 @@ acts.controller('ActsController', function ActsController($scope, $location) {
         createDate: new Date()
     });
 
+    $scope.removeAct = function(id) {
+        var acts = JSON.parse(localStorage.getItem('acts'));
+        acts = acts.filter(function (act) { return act.id != id; });
+        localStorage.setItem('acts', JSON.stringify(acts));
+
+        angular.element(document.querySelector('#act_' + id)).remove();
+    }
+
 });

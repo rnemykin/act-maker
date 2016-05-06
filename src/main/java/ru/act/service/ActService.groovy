@@ -77,11 +77,11 @@ class ActService {
         actProperty.userName = nameProcessor.inCaseRod(act.userName)
         actProperty.shortUserName = getShortName(act.userName)
 
-        actProperty.actDay = act.date.withDayOfMonth(act.date.lengthOfMonth()).dayOfMonth
-        actProperty.actMonth = act.date.month.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("ru"))
-        actProperty.actYear = act.date.year
-        actProperty.actStartDate = act.date.withDayOfMonth(1).format(RU_DATE_FORMATTER)
-        actProperty.actEndDate = act.date.withDayOfMonth(act.date.lengthOfMonth()).format(RU_DATE_FORMATTER)
+        actProperty.actDay = act.createDate.withDayOfMonth(act.createDate.lengthOfMonth()).dayOfMonth
+        actProperty.actMonth = act.createDate.month.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("ru"))
+        actProperty.actYear = act.createDate.year
+        actProperty.actStartDate = act.createDate.withDayOfMonth(1).format(RU_DATE_FORMATTER)
+        actProperty.actEndDate = act.createDate.withDayOfMonth(act.createDate.lengthOfMonth()).format(RU_DATE_FORMATTER)
         actProperty.actNumber = act.actNumber
 
         actProperty.docNumber = act.docNumber
@@ -96,7 +96,7 @@ class ActService {
 
         if(act.additionalTask) {
             actProperty.addTask = act.additionalTask
-            actProperty.salaryRate2 = act.salaryRate.multiply(BigDecimal.valueOf(1.5)).setScale(0)
+            actProperty.salaryRate2 = act.salaryRate.multiply(BigDecimal.valueOf(1.5)).setScale(2)
             actProperty.addSum = act.additionalTaskHours?.multiply(actProperty.salaryRate2)
             actProperty.addTaskHours = act.additionalTaskHours
             actProperty.actAddStartDate = actProperty.actStartDate + '-'

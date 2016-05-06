@@ -1,4 +1,4 @@
-acts.controller('CreateACtController', function CreateACtController($scope, $location) {
+acts.controller('CreateACtController', function CreateACtController($scope, $location, $http) {
     var user = JSON.parse(localStorage.getItem('user'));
     if(user && user.docSignDate) {
         user.docSignDate = new Date(user.docSignDate);
@@ -19,7 +19,7 @@ acts.controller('CreateACtController', function CreateACtController($scope, $loc
     $scope.create = function($scope) {
         var act = {
             userName: this.user.name,
-            date: this.act.date,
+            createDate: this.act.createDate,
             actNumber: this.act.number,
             docNumber: this.user.docNumber,
             certSerial: this.user.certSerial,
@@ -33,6 +33,25 @@ acts.controller('CreateACtController', function CreateACtController($scope, $loc
         };
 
         localStorage.setItem('user', JSON.stringify(this.user));
+        $http.post('/acts', act).then(onCreateSuccess, onCreateFail);
 
+    };
+
+    var onCreateSuccess = function(response) {
+        var data = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+        var header = response.headers()['content-disposition'];
+        var fileName = header.substr(header.indexOf('=') + 1);
+        saveAs(data, fileName);
+        //show ok
+
+        var acts = JSON.parse(localStorage.getItem('acts')) || [];
+        var act = response.config.data;
+        act.id = new Date().getTime(); 
+        acts.push(act);
+        localStorage.setItem('acts', JSON.stringify(acts))
+    };
+
+    var onCreateFail = function(response) {
+        //show fail
     };
 });

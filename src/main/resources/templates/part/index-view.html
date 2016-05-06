@@ -7,12 +7,14 @@
         <tr>
             <th>Номер акта</th>
             <th>Дата формирования</th>
+            <th>Действия</th>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="row in acts">
+        <tr ng-repeat="row in acts" id="act_{{row.id}}">
             <td>{{row.actNumber}}</td>
             <td>{{row.createDate | date:'dd.MM.yyyy HH:mm' }}</td>
+            <td style="cursor: pointer;" ng-click="removeAct(row.id)">X</td>
         </tr>
         </tbody>
     </table>
