@@ -46,7 +46,7 @@ acts.controller('CreateACtController', function CreateACtController($scope, $loc
         var data = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
         var header = response.headers()['content-disposition'];
         var fileName = header.substr(header.indexOf('=') + 1);
-        saveAs(data, fileName);
+        saveAs(data, decodeURI(fileName));
         //show ok
 
         var acts = JSON.parse(localStorage.getItem('acts')) || [];

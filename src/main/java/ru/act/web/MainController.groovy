@@ -27,14 +27,16 @@ class MainController {
 
         HttpHeaders header = new HttpHeaders()
         header.setContentType(new MediaType("application", "vnd.openxmlformats-officedocument.wordprocessingml.document"))
-        header.set("Content-Disposition", "attachment; filename=" + getFileName(act))
+
+        String fileName = URLEncoder.encode(getFileName(act), "UTF-8")
+        header.set("Content-Disposition", "attachment; filename=" + fileName)
         header.set("Content-Transfer-Encoding", "binary")
         header.setContentLength(bytes.size())
         new ResponseEntity<>(bytes, header, HttpStatus.OK)
     }
 
     byte[] getDocxBytes(XWPFDocument xwpfDocument) {
-        def stream = new ByteArrayOutputStream();
+        def stream = new ByteArrayOutputStream()
         xwpfDocument.write(stream)
         xwpfDocument.close()
         stream.toByteArray()
