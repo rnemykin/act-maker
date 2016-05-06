@@ -18,7 +18,7 @@ acts.controller('CreateACtController', function CreateACtController($scope, $loc
 
     $scope.create = function() {
         var now = new Date();
-        var createDate = this.act.createDate;
+        var createDate = this.act.createDate || new Date();
         createDate.setHours(now.getHours());
         createDate.setMinutes(now.getMinutes());
 
@@ -47,16 +47,38 @@ acts.controller('CreateACtController', function CreateACtController($scope, $loc
         var header = response.headers()['content-disposition'];
         var fileName = header.substr(header.indexOf('=') + 1);
         saveAs(data, decodeURI(fileName));
-        //show ok
 
         var acts = JSON.parse(localStorage.getItem('acts')) || [];
         var act = response.config.data;
         act.id = new Date().getTime(); 
         acts.push(act);
-        localStorage.setItem('acts', JSON.stringify(acts))
+        localStorage.setItem('acts', JSON.stringify(acts));
+        
+        $scope.hasSuccess = true;
+        setTimeout(function() {
+            $scope.$apply(function() {
+                $scope.hasSuccess = false;
+            });
+        }, 3000);
     };
 
     var onCreateFail = function(response) {
-        //show fail
+        if(response.status == 422) {
+            $scope.hasInfo = true;
+            $scope.infoMsg = response.data.message;
+        } else {
+            $scope.hasError = true;
+            $scope.errorMsg = 'Ooops';
+        }
+
+        setTimeout(function() {
+            $scope.$apply(function() {
+                $scope.hasInfo = false;
+                $scope.hasError = false;
+                $scope.errorMsg = '';
+                $scope.infoMsg = '';
+            });
+
+        }, 3000);
     };
 });

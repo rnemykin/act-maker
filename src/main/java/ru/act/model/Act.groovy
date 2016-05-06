@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 class Act {
     String userName
-    LocalDate createDate
+    LocalDate createDate = LocalDate.now()
     Integer actNumber
     Integer docNumber
     Integer certSerial;

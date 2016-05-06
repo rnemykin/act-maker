@@ -7,6 +7,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import ru.act.common.ValidationException
 import ru.act.model.Act
 
 import java.time.format.DateTimeFormatterBuilder
@@ -14,6 +15,7 @@ import java.time.format.SignStyle
 import java.time.format.TextStyle
 
 import static java.time.temporal.ChronoField.*
+import static org.springframework.util.StringUtils.isEmpty
 
 @Service
 class ActService {
@@ -32,6 +34,8 @@ class ActService {
 
 
     XWPFDocument makeAct(Act act) {
+        validate(act)
+
         def actProperty = buildProperties(act)
         def docTemplate = ActService.class.getResource("/test.docx")
         XWPFDocument doc = new XWPFDocument(OPCPackage.open(docTemplate.file))
@@ -58,6 +62,27 @@ class ActService {
 
         log.info("Act for user {} has been created", act.userName)
         doc
+    }
+
+    void validate(Act act) {
+        if(act == null) {
+            throw new ValidationException("Акт не мб пустым")
+        }
+        if(act.docNumber == null || act.docSignDate == null) {
+            throw new ValidationException("Номер или дата подписания договора не мб пустым")
+        }
+        if(isEmpty(act.certNumber) || act.certSerial == null) {
+            throw new ValidationException("Серия или номер ИП не мб пустым")
+        }
+        if(isEmpty(act.userName)) {
+            throw new ValidationException("ФИО юзера не мб пустым")
+        }
+        if(isEmpty(act.mainTask) || act.mainTaskHours == null) {
+            throw new ValidationException("Название задачи или количество часов не мб пустым")
+        }
+        if(act.actNumber == null) {
+            throw new ValidationException("Номер акта не мб пустым")
+        }
     }
 
     String replaceFromProperty(String text, ActProperty source) {
