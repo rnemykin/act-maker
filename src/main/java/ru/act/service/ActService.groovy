@@ -77,7 +77,7 @@ class ActService {
         actProperty.userName = nameProcessor.inCaseRod(act.userName)
         actProperty.shortUserName = getShortName(act.userName)
 
-        actProperty.actDay = act.createDate.withDayOfMonth(act.createDate.lengthOfMonth()).dayOfMonth
+        actProperty.actDay = act.createDate.dayOfMonth
         actProperty.actMonth = act.createDate.month.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("ru"))
         actProperty.actYear = act.createDate.year
         actProperty.actStartDate = act.createDate.withDayOfMonth(1).format(RU_DATE_FORMATTER)

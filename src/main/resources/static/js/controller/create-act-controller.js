@@ -16,10 +16,15 @@ acts.controller('CreateACtController', function CreateACtController($scope, $loc
     }
     $scope.act = act;
 
-    $scope.create = function($scope) {
+    $scope.create = function() {
+        var now = new Date();
+        var createDate = this.act.createDate;
+        createDate.setHours(now.getHours());
+        createDate.setMinutes(now.getMinutes());
+
         var act = {
             userName: this.user.name,
-            createDate: this.act.createDate,
+            createDate: createDate,
             actNumber: this.act.number,
             docNumber: this.user.docNumber,
             certSerial: this.user.certSerial,
