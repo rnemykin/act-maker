@@ -63,20 +63,17 @@ acts.controller('CreateACtController', function CreateACtController($scope, $loc
     };
 
     var onCreateFail = function(response) {
-        if(response.status == 422) {
-            $scope.hasInfo = true;
-            $scope.infoMsg = response.data.message;
-        } else {
-            $scope.hasError = true;
-            $scope.errorMsg = 'Ooops';
-        }
+        $scope.errorMsg = response.status == 422
+            ? decodeURI(response.headers()['act-error-message']).replace(/\+/g,' ')
+            : 'Ooops';
+        $scope.hasError = true;
 
         setTimeout(function() {
             $scope.$apply(function() {
-                $scope.hasInfo = false;
+                // $scope.hasInfo = false;
                 $scope.hasError = false;
                 $scope.errorMsg = '';
-                $scope.infoMsg = '';
+                // $scope.infoMsg = '';
             });
 
         }, 3000);
