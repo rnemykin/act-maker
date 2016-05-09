@@ -12,12 +12,17 @@ acts.config(['$routeProvider', function ($routeProvider) {
     });
 }]);
 
+acts.factory('routeService', ['$location', function($location) {
+    return {
+        go: function(path) {
+            $location.path(path);
+        }
+    }
+}]);
 
-acts.controller('ActsController', function ActsController($scope, $location) {
+acts.controller('ActsController', ['$scope', 'routeService', function ActsController($scope, routeService) {
 
-    $scope.go = function (path) {
-        $location.path(path);
-    };
+    $scope.go = routeService.go;
 
     $scope.acts = JSON.parse(localStorage.getItem('acts')) || [];
 
@@ -41,4 +46,4 @@ acts.controller('ActsController', function ActsController($scope, $location) {
         angular.element(document.querySelector('#act_' + id)).remove();
     }
 
-});
+}]);

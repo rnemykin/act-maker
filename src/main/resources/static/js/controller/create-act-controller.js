@@ -1,4 +1,8 @@
-acts.controller('CreateACtController', function CreateACtController($scope, $location, $http) {
+acts.controller('CreateACtController',
+    ['$scope', '$location', '$http', 'routeService', function CreateACtController($scope, $location, $http, routeService) {
+
+    $scope.go = routeService.go;
+
     var user = JSON.parse(localStorage.getItem('user'));
     if(user && user.docSignDate) {
         user.docSignDate = new Date(user.docSignDate);
@@ -78,4 +82,4 @@ acts.controller('CreateACtController', function CreateACtController($scope, $loc
 
         }, 3000);
     };
-});
+}]);
