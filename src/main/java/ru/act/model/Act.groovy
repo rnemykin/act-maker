@@ -7,12 +7,12 @@ class Act {
     LocalDate createDate = LocalDate.now()
     Integer actNumber
     Integer docNumber
-    Integer certSerial;
-    String certNumber;
+    Integer certSerial
+    String certNumber
     LocalDate docSignDate
-    BigDecimal salaryRate = BigDecimal.ZERO
+    BigDecimal salaryRate
     String mainTask
-    BigDecimal mainTaskHours = BigDecimal.ZERO
+    BigDecimal mainTaskHours
     String additionalTask
     BigDecimal additionalTaskHours
 }
