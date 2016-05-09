@@ -26,18 +26,6 @@ acts.controller('ActsController', ['$scope', 'routeService', function ActsContro
 
     $scope.acts = JSON.parse(localStorage.getItem('acts')) || [];
 
-    //todo test
-    $scope.acts.push({
-        id: 1,
-        actNumber: 1,
-        createDate: new Date()
-    });
-    $scope.acts.push({
-        id: 2,
-        actNumber: 2,
-        createDate: new Date()
-    });
-
     $scope.removeAct = function(id) {
         var acts = JSON.parse(localStorage.getItem('acts'));
         acts = acts.filter(function (act) { return act.id != id; });
