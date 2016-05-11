@@ -33,16 +33,6 @@ public class ActServiceTest {
 
 
     @Test
-    public void emailTest() {
-        EmailValidator emailValidator = EmailValidator.getInstance();
-        String[] email = {"asd@asd.as", "asdasd@asd.рф", "русский_имэил@яндекс.рф"};
-        for (String s : email) {
-
-            System.out.println(s + " is valid: " + emailValidator.isValid(s));
-        }
-    }
-
-    @Test
     public void makeAct() throws Exception {
         Act act = new Act();
         act.setActNumber(8);
