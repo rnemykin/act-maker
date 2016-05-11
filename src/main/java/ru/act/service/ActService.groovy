@@ -2,6 +2,7 @@ package ru.act.service
 
 import com.ibm.icu.text.RuleBasedNumberFormat
 import org.apache.poi.openxml4j.opc.OPCPackage
+import org.apache.poi.openxml4j.opc.PackageAccess
 import org.apache.poi.xwpf.usermodel.XWPFDocument
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -11,7 +12,10 @@ import org.springframework.util.StreamUtils
 import org.springframework.util.StringUtils
 import ru.act.common.ValidationException
 import ru.act.model.Act
+import ru.act.model.ActDocument
 
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.time.format.DateTimeFormatterBuilder
 import java.time.format.SignStyle
 import java.time.format.TextStyle
@@ -35,7 +39,7 @@ class ActService {
     private RussianNameProcessor nameProcessor;
 
 
-    XWPFDocument makeAct(Act act) {
+    ActDocument makeAct(Act act) {
         validate(act)
 
         def actProperty = buildProperties(act)
@@ -63,7 +67,12 @@ class ActService {
         }
 
         log.info("Act for user {} has been created", act.userName)
-        doc
+
+        def stream = new ByteArrayOutputStream()
+        doc.write(stream)
+        doc.getPackage().revert()
+
+        new ActDocument(stream.toByteArray(), getFileName(act))
     }
 
     void validate(Act act) {
@@ -157,6 +166,18 @@ class ActService {
         String middleName = values.size() > 2 ? values[2] : null
 
         String.format("%s %s. %s.", lastName, firstName?.charAt(0), middleName?.charAt(0))
+    }
+
+    byte[] getDocxBytes(XWPFDocument xwpfDocument) {
+        def stream = new ByteArrayOutputStream()
+        xwpfDocument.write(stream)
+        stream.toByteArray()
+    }
+
+    String getFileName(Act act) {
+        String month = act.getCreateDate().getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.forLanguageTag("ru"))
+        String userName = act.getUserName().replaceAll(" ", "_")
+        String.format("Акт_%s_%s_%s.docx", month, act.getCreateDate().getYear(), userName)
     }
 
     static class ActProperty {

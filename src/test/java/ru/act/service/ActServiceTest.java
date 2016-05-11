@@ -1,7 +1,5 @@
 package ru.act.service;
 
-import org.apache.commons.validator.routines.EmailValidator;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +7,20 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.act.Application;
 import ru.act.model.Act;
+import ru.act.model.ActDocument;
 
 import javax.script.ScriptException;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.time.format.TextStyle;
-import java.util.Locale;
+
+import static org.junit.Assert.assertNotNull;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(Application.class)
+@SuppressWarnings("SpringJavaAutowiringInspection")
 public class ActServiceTest {
 
     @Autowired
@@ -48,12 +46,10 @@ public class ActServiceTest {
 //        act.setAdditionalTask("asdasdas ahsgdjasghd asg yuags udyags udygas uygas ");
 //        act.setAdditionalTaskHours(BigDecimal.valueOf(16));
 
-        XWPFDocument xwpfDocument = actService.makeAct(act);
-
-        String month = act.getCreateDate().getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.forLanguageTag("ru"));
-        String userName = act.getUserName().replaceAll(" ", "_");
-        String fileName = String.format("Акт_%s_%s_%s.docx", month, act.getCreateDate().getYear(), userName);
-        xwpfDocument.write(new FileOutputStream(new File(fileName)));
+        ActDocument actDocument = actService.makeAct(act);
+        assertNotNull(actDocument);
+        assertNotNull(actDocument.getBytes());
+        assertNotNull(actDocument.getFileName());
     }
 
     @Test
