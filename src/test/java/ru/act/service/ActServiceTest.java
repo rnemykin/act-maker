@@ -1,5 +1,6 @@
 package ru.act.service;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +16,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
@@ -28,6 +31,17 @@ public class ActServiceTest {
     @Autowired
     RussianNameProcessor nameProcessor;
 
+
+    @Test
+    public void emailTest() {
+        EmailValidator emailValidator = EmailValidator.getInstance();
+        String[] email = {"asd@asd.as", "asdasd@asd.рф", "русский_имэил@яндекс.рф"};
+        for (String s : email) {
+
+            System.out.println(s + " is valid: " + emailValidator.isValid(s));
+        }
+    }
+
     @Test
     public void makeAct() throws Exception {
         Act act = new Act();
@@ -37,7 +51,7 @@ public class ActServiceTest {
         act.setMainTaskHours(BigDecimal.valueOf(160));
         act.setMainTask("Доработка функционала COD-GATEWAY");
         act.setDocSignDate(LocalDate.of(2015, 8, 1));
-        act.setCreateDate(LocalDate.of(2016, 3, 5));
+        act.setCreateDate(ZonedDateTime.now());
         act.setUserName("Немыкин Роман Валерьевич");
         act.setCertSerial(31);
         act.setCertNumber("002439785");

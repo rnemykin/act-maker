@@ -39,7 +39,7 @@ class ActService {
         validate(act)
 
         def actProperty = buildProperties(act)
-        def docTemplate = ActService.class.getResource("/test.docx")
+        def docTemplate = ActService.class.getResource("/template.docx")
         XWPFDocument doc = new XWPFDocument(OPCPackage.open(docTemplate.file))
         doc.paragraphs.each {
             it.runs.each {
@@ -119,7 +119,7 @@ class ActService {
         actProperty.actMonth = act.createDate.month.getDisplayName(TextStyle.FULL, Locale.forLanguageTag("ru"))
         actProperty.actYear = act.createDate.year
         actProperty.actStartDate = act.createDate.withDayOfMonth(1).format(RU_DATE_FORMATTER)
-        actProperty.actEndDate = act.createDate.withDayOfMonth(act.createDate.lengthOfMonth()).format(RU_DATE_FORMATTER)
+        actProperty.actEndDate = act.createDate.withDayOfMonth(act.createDate.toLocalDate().lengthOfMonth()).format(RU_DATE_FORMATTER)
         actProperty.actNumber = act.actNumber
 
         actProperty.docNumber = act.docNumber

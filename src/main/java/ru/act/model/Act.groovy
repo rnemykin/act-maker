@@ -1,10 +1,12 @@
 package ru.act.model
 
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 class Act {
     String userName
-    LocalDate createDate = LocalDate.now()
+    ZonedDateTime createDate = ZonedDateTime.now()
     Integer actNumber
     Integer docNumber
     Integer certSerial

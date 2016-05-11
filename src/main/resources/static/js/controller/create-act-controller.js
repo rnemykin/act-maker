@@ -1,5 +1,5 @@
 acts.controller('CreateACtController',
-    ['$scope', '$location', '$http', 'routeService', function CreateACtController($scope, $location, $http, routeService) {
+    ['$scope', '$location', '$http', '$filter', 'routeService', function CreateACtController($scope, $location, $http, $filter, routeService) {
 
     $scope.go = routeService.go;
 
@@ -25,6 +25,11 @@ acts.controller('CreateACtController',
         var createDate = this.act.createDate || new Date();
         createDate.setHours(now.getHours());
         createDate.setMinutes(now.getMinutes());
+
+        if(this.user.docSignDate) {
+            this.user.docSignDate.setHours(now.getHours());
+            this.user.docSignDate.setMinutes(now.getMinutes());
+        }
 
         var act = {
             userName: this.user.name,
