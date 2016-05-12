@@ -20,13 +20,17 @@ acts.factory('routeService', ['$location', function($location) {
     }
 }]);
 
-acts.controller('ActsController', ['$scope', 'routeService', function ActsController($scope, routeService) {
+acts.controller('ActsController', ['$scope', '$window', 'routeService', function ActsController($scope, $window, routeService) {
 
     $scope.go = routeService.go;
 
     $scope.acts = JSON.parse(localStorage.getItem('acts')) || [];
 
     $scope.removeAct = function(id) {
+        if(!$window.confirm('Удалить акт?')) {
+            return;
+        }
+
         var acts = JSON.parse(localStorage.getItem('acts'));
         acts = acts.filter(function (act) { return act.id != id; });
         localStorage.setItem('acts', JSON.stringify(acts));
