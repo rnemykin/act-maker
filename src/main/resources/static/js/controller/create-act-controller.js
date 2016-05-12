@@ -47,7 +47,10 @@ acts.controller('CreateACtController',
         };
 
         localStorage.setItem('user', JSON.stringify(this.user));
-        $http.post('/acts', act, { responseType: 'arraybuffer' }).then(onCreateSuccess, onCreateFail);
+        $scope.isProcessing = true;
+        $http.post('/acts', act, { responseType: 'arraybuffer' })
+            .then(onCreateSuccess, onCreateFail)
+            .then(function() { $scope.isProcessing = false; });
 
     };
 
@@ -79,10 +82,8 @@ acts.controller('CreateACtController',
 
         setTimeout(function() {
             $scope.$apply(function() {
-                // $scope.hasInfo = false;
                 $scope.hasError = false;
                 $scope.errorMsg = '';
-                // $scope.infoMsg = '';
             });
 
         }, 3000);
