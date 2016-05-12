@@ -6,7 +6,10 @@ acts.config(['$routeProvider', function ($routeProvider) {
         controller: 'ActsController'
     }).when('/create', {
         templateUrl:  'part/create-act',
-        controller: 'CreateACtController'
+        controller: 'CreateActController'
+    }).when('/view/:actId', {
+        templateUrl:  'part/view-act',
+        controller: 'ViewActController'
     }).otherwise({
         redirectTo: '/'
     });

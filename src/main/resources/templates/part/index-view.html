@@ -11,7 +11,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="row in acts" id="act_{{row.id}}">
+        <tr ng-repeat="row in acts" id="act_{{row.id}}" ng-click="go('view/' + row.id)">
             <td>{{row.actNumber}}</td>
             <td>{{row.createDate | date:'dd.MM.yyyy HH:mm' }}</td>
             <td><span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="removeAct(row.id)"></span></td>

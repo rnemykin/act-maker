@@ -1,5 +1,5 @@
-acts.controller('CreateACtController',
-    ['$scope', '$location', '$http', '$filter', 'routeService', function CreateACtController($scope, $location, $http, $filter, routeService) {
+acts.controller('CreateActController',
+    ['$scope', '$location', '$http', '$filter', 'routeService', function CreateActController($scope, $location, $http, $filter, routeService) {
 
     $scope.go = routeService.go;
 

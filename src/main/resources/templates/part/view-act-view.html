@@ -1,0 +1,75 @@
+<div class="container col-centered">
+    <div class="alert alert-danger alert-fixed col-sm-4" ng-show="hasError" ng-hide="!hasError">
+        <strong>{{ errorMsg }}</strong>
+    </div>
+    <div class="alert alert-success alert-fixed col-sm-4" ng-show="hasSuccess" ng-hide="!hasSuccess">
+        <strong>Акт успешно создан</strong>
+    </div>
+    <div class="back-btn glyphicon glyphicon-menu-left" ng-click="go('/')"></div>
+    <div class="row">
+        <h2>Акт # {{act.actNumber}} от {{act.createDate | date:'dd.MM.yyyy'}}</h2>
+    </div>
+    <div class="col-sm-6">
+        <div class="row">
+            <div class="form-group">
+                <label for="userName">Ваше ФИО</label>
+                <input type="text" class="form-control" id="userName" ng-model="act.userName" required="required"/>
+            </div>
+
+            <label>Свидетельство ИП</label>
+            <div class="input-group">
+                <span class="input-group-addon">Серия</span>
+                <input type="number" class="form-control input-mini" id="certSerial" ng-model="act.certSerial"/>
+                <span class="input-group-addon" style="border-left: 0; border-right: 0;">номер</span>
+                <input type="text" class="form-control" id="certNumber" ng-model="act.certNumber" />
+            </div>
+
+            <label>Договор</label>
+            <div class="input-group">
+                <span class="input-group-addon">Номер</span>
+                <input type="number" class="form-control" id="docNumber" ng-model="act.docNumber" />
+                <span class="input-group-addon" style="border-left: 0; border-right: 0;">дата</span>
+                <input type="date" class="form-control" id="docSignDate" ng-model="act.docSignDate" />
+            </div>
+
+            <label for="salaryRate">Ставка в час</label>
+            <div class="input-group col-sm-3">
+                <input type="number" class="form-control" id="salaryRate" ng-model="act.salaryRate"/>
+                <span class="input-group-addon">.00</span>
+            </div>
+            <br/>
+            <br/>
+
+            <label>Название задачи / часы</label>
+            <div class="input-group">
+                <span class="input-group-addon">Задача</span>
+                <input type="text" class="form-control" id="mainTask" ng-model="act.mainTask" style="width: 350px;"/>
+                <span class="input-group-addon" style="border-left: 0; border-right: 0;">часы</span>
+                <input type="number" class="form-control" id="mainTaskHours" ng-model="act.mainTaskHours"/>
+            </div>
+
+            <label>Работы в выхи</label>
+            <div class="input-group collapse">
+                <span class="input-group-addon">Задача</span>
+                <input type="text" class="form-control" id="additionalTask" ng-model="act.additionalTask" style="width: 350px;"/>
+                <span class="input-group-addon" style="border-left: 0; border-right: 0;">часы</span>
+                <input type="number" class="form-control" id="additionalTaskHours" ng-model="act.additionalTaskHours"/>
+            </div>
+
+            <label>Акт</label>
+            <div class="input-group">
+                <span class="input-group-addon">Номер</span>
+                <input type="number" class="form-control" id="actNumber" ng-model="act.actNumber" />
+                <span class="input-group-addon" style="border-left: 0; border-right: 0;">дата</span>
+                <input type="date" class="form-control" id="createDate" ng-model="act.createDate"/>
+            </div>
+            <br/>
+
+            <div class="form-group">
+                <button ng-click="create()" class="btn btn-success" ng-disabled="isProcessing">Сформировать акт</button>
+                <!--<button ng-click="sentToEmail()" class="btn btn-primary">Отправить на почту</button>-->
+            </div>
+        </div>
+    </div>
+
+</div>
