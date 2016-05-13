@@ -11,8 +11,19 @@ acts.controller('ViewActController', ['$scope', '$location', '$http', '$filter',
         
         $scope.saveAct = function() {
             $scope.isProcessing = true;
-            
-            $http.post('/acts', act, {responseType: 'arraybuffer'})
+
+            var now = new Date();
+            var createDate = this.act.createDate || new Date();
+            createDate.setHours(now.getHours());
+            createDate.setMinutes(now.getMinutes());
+            this.act.createDate = createDate;
+
+            if (this.act.docSignDate) {
+                this.act.docSignDate.setHours(now.getHours());
+                this.act.docSignDate.setMinutes(now.getMinutes());
+            }
+
+            $http.post('/acts', $scope.act, {responseType: 'arraybuffer'})
                 .then(onCreateSuccess, onCreateFail)
                 .finally(function () {
                     $scope.isProcessing = false;
