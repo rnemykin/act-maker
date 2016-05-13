@@ -29,13 +29,19 @@ acts.controller('ViewActController', ['$scope', '$location', '$http', '$filter',
                     $scope.isProcessing = false;
                 })
                 .then(function () {
-                    setTimeout(function () {
-                        $scope.$apply(function () {
-                            $scope.hasSuccess = false;
-                            $scope.hasError = false;
-                            $scope.errorMsg = '';
-                        });
-                    }, 3000);
+                    if($scope.hasError) {
+                        setTimeout(function () {
+                            $scope.$apply(function () {
+                                $scope.hasSuccess = false;
+                                $scope.hasError = false;
+                                $scope.errorMsg = '';
+                            });
+                        }, 3000);
+                    } else {
+                        setTimeout(function() {
+                            $scope.$apply(function() { $scope.go('/'); });
+                        }, 1000);
+                    }
                 });
         };
 
