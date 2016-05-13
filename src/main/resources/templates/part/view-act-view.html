@@ -7,7 +7,7 @@
     </div>
     <div class="back-btn glyphicon glyphicon-menu-left" ng-click="go('/')"></div>
     <div class="row">
-        <h2>Акт # {{act.actNumber}} от {{act.createDate | date:'dd.MM.yyyy'}}</h2>
+        <h2>Акт № {{act.actNumber}} от {{act.createDate | date:'dd.MM.yyyy'}}</h2>
     </div>
     <div class="col-sm-6">
         <div class="row">
@@ -66,8 +66,7 @@
             <br/>
 
             <div class="form-group">
-                <button ng-click="create()" class="btn btn-success" ng-disabled="isProcessing">Сформировать акт</button>
-                <!--<button ng-click="sentToEmail()" class="btn btn-primary">Отправить на почту</button>-->
+                <button ng-click="create()" class="btn btn-success" ng-disabled="isProcessing">Сохранить акт</button>
             </div>
         </div>
     </div>

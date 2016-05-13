@@ -57,12 +57,14 @@ acts.controller('CreateActController',
     var onCreateSuccess = function(response) {
         var data = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
         var header = response.headers()['content-disposition'];
-        var fileName = header.substr(header.indexOf('=') + 1);
-        saveAs(data, decodeURI(fileName));
+        var fileName = decodeURI(header.substr(header.indexOf('=') + 1));
+        saveAs(data, fileName);
 
         var acts = JSON.parse(localStorage.getItem('acts')) || [];
         var act = response.config.data;
-        act.id = new Date().getTime(); 
+        act.id = new Date().getTime();
+        act.fileName = fileName;
+        act.clob = String.fromCharCode.apply(null, new Uint16Array(response.data));
         acts.push(act);
         localStorage.setItem('acts', JSON.stringify(acts));
         
