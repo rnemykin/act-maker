@@ -165,7 +165,7 @@ class ActService {
         String firstName = values.size() > 1 ? values[1] : null
         String middleName = values.size() > 2 ? values[2] : null
 
-        String.format("%s %s. %s.", lastName, firstName?.charAt(0), middleName?.charAt(0))
+        String.format("%s %s. %s.", lastName, firstName?.charAt(0) ?: '', middleName?.charAt(0) ?: '')
     }
 
     byte[] getDocxBytes(XWPFDocument xwpfDocument) {

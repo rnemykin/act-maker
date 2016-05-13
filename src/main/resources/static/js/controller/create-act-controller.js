@@ -64,7 +64,7 @@ acts.controller('CreateActController',
         var act = response.config.data;
         act.id = new Date().getTime();
         act.fileName = fileName;
-        act.clob = String.fromCharCode.apply(null, new Uint16Array(response.data));
+        act.clob = String.fromCharCode.apply(null, new Uint8Array(response.data));
         acts.push(act);
         localStorage.setItem('acts', JSON.stringify(acts));
         

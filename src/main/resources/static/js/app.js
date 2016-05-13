@@ -49,8 +49,8 @@ acts.controller('ActsController', ['$scope', '$window', 'routeService', function
             return;
         }
 
-        var buf = new ArrayBuffer(act.clob.length * 2);
-        var bufView = new Uint16Array(buf);
+        var buf = new ArrayBuffer(act.clob.length);
+        var bufView = new Uint8Array(buf);
         for (var i=0, strLen=act.clob.length; i<strLen; i++) {
             bufView[i] = act.clob.charCodeAt(i);
         }
