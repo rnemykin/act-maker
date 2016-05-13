@@ -50,7 +50,16 @@ acts.controller('CreateActController',
         $scope.isProcessing = true;
         $http.post('/acts', act, { responseType: 'arraybuffer' })
             .then(onCreateSuccess, onCreateFail)
-            .then(function() { $scope.isProcessing = false; });
+            .finally(function() { $scope.isProcessing = false; })
+            .then(function() {
+                setTimeout(function() {
+                    $scope.$apply(function() {
+                        $scope.hasSuccess = false;
+                        $scope.hasError = false;
+                        $scope.errorMsg = '';
+                    });
+                }, 3000);
+            });
 
     };
 
@@ -67,13 +76,7 @@ acts.controller('CreateActController',
         act.clob = String.fromCharCode.apply(null, new Uint8Array(response.data));
         acts.push(act);
         localStorage.setItem('acts', JSON.stringify(acts));
-        
         $scope.hasSuccess = true;
-        setTimeout(function() {
-            $scope.$apply(function() {
-                $scope.hasSuccess = false;
-            });
-        }, 3000);
     };
 
     var onCreateFail = function(response) {
@@ -81,13 +84,5 @@ acts.controller('CreateActController',
             ? decodeURI(response.headers()['act-error-message']).replace(/\+/g,' ')
             : 'Ooops';
         $scope.hasError = true;
-
-        setTimeout(function() {
-            $scope.$apply(function() {
-                $scope.hasError = false;
-                $scope.errorMsg = '';
-            });
-
-        }, 3000);
     };
 }]);
