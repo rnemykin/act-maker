@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.act.Application;
 import ru.act.model.Act;
 import ru.act.model.ActDocument;
+import ru.act.service.ActService;
 
 import javax.script.ScriptException;
 import java.io.FileNotFoundException;
@@ -43,13 +44,9 @@ public class ActServiceTest {
         act.setUserName("Немыкин Роман Валерьевич");
         act.setCertSerial(31);
         act.setCertNumber("002439785");
-//        act.setAdditionalTask("asdasdas ahsgdjasghd asg yuags udyags udygas uygas ");
-//        act.setAdditionalTaskHours(BigDecimal.valueOf(16));
 
         ActDocument actDocument = actService.makeAct(act);
         assertNotNull(actDocument);
-        assertNotNull(actDocument.getBytes());
-        assertNotNull(actDocument.getFileName());
     }
 
     @Test

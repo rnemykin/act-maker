@@ -12,7 +12,7 @@ import java.nio.charset.Charset
 @Service
 class RussianNameProcessor {
 
-    private static final ScriptEngine JS_ENGINE = new ScriptEngineManager().getEngineByName("javascript");
+    private static final ScriptEngine JS_ENGINE = new ScriptEngineManager().getEngineByName("javascript")
     private static final String GET_IN_ROD = "RussianNameProcessor.word('%s', '', '%s', RussianNameProcessor.gcaseRod)"
 
     @Value("classpath:RussianNameProcessor.js")

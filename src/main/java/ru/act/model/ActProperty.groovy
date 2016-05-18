@@ -13,8 +13,8 @@ class ActProperty {
     String actAddEndDate
     Integer actNumber
 
-    Integer certSerial;
-    String certNumber;
+    Integer certSerial
+    String certNumber
     Integer docNumber
     Integer docSignYear
     String docSignDate
