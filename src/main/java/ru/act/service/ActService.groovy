@@ -6,14 +6,10 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import org.springframework.util.StringUtils
-import ru.act.common.ValidationException
 import ru.act.model.Act
 import ru.act.model.ActDocument
 import ru.act.model.ActProperty
 import java.time.format.TextStyle
-
-import static org.springframework.util.StringUtils.isEmpty
 
 @Service
 class ActService {
@@ -22,8 +18,11 @@ class ActService {
     @Autowired
     private Act2ActPropertyMapper act2ActPropertyMapper
 
+    @Autowired
+    private ActValidator actValidator
+
     ActDocument makeAct(Act act) {
-        validate(act)
+        actValidator.validate(act)
 
         def actProperty = act2ActPropertyMapper.map(act)
         def docTemplate = ActService.class.getResource("/template.docx")
@@ -56,38 +55,6 @@ class ActService {
         doc.getPackage().revert()
 
         new ActDocument(stream.toByteArray(), getFileName(act))
-    }
-
-    void validate(Act act) {
-        if(act == null) {
-            throw new ValidationException("Акт не мб пустым")
-        }
-        if(act.docNumber == null || act.docSignDate == null) {
-            throw new ValidationException("Номер или дата подписания договора не мб пустым")
-        }
-        if(isEmpty(act.certNumber) || act.certSerial == null) {
-            throw new ValidationException("Серия или номер ИП не мб пустым")
-        }
-        if(isEmpty(act.userName)) {
-            throw new ValidationException("ФИО юзера не мб пустым")
-        }
-        if(isEmpty(act.mainTask)) {
-            throw new ValidationException("Название задачи не мб пустым")
-        }
-        if(act.mainTaskHours == null || act.mainTaskHours.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new ValidationException("Количество часов по задаче должно быть > 0")
-        }
-        if(act.actNumber == null) {
-            throw new ValidationException("Номер акта не мб пустым")
-        }
-        if(act.salaryRate == null || act.salaryRate.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new ValidationException("Ставка должна быть > 0")
-        }
-        if(StringUtils.hasText(act.additionalTask)) {
-            if(act.additionalTaskHours == null || act.additionalTaskHours.compareTo(BigDecimal.ZERO) <= 0) {
-                throw new ValidationException("Количество часов по дополнительной задаче должно быть > 0")
-            }
-        }
     }
 
     String replaceFromProperty(String text, ActProperty source) {
