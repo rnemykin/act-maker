@@ -32,10 +32,29 @@
         .margin-r16 {
             margin-right: 16px;
         }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            text-align: center;
+        }
+        .container .text-muted {
+            margin: 20px 0;
+        }
+
+        .text-muted {
+            color: #777;
+        }
     </style>
 </head>
 <body ng-app="acts">
     <div ng-view=""></div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">ActMaker v 1.0</p>
+        </div>
+    </footer>
 
     <script type="text/javascript" th:src="@{/js/lib/angular.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/lib/angular-route.min.js}"></script>
