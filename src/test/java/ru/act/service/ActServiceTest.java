@@ -12,6 +12,8 @@ import ru.act.model.ActDocument;
 import javax.script.ScriptException;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
@@ -50,6 +52,7 @@ public class ActServiceTest {
         assertNotNull(actDocument);
         assertNotNull(actDocument.getBytes());
         assertNotNull(actDocument.getFileName());
+        Files.write(Paths.get(actDocument.getFileName()), actDocument.getBytes());
     }
 
     @Test
